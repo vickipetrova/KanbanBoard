@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<htm lang="en-us">
+<head>
+    <title>Kanban Board</title>
+    <meta charset="utf-8">
+    <title>Kanban Board CS162</title>
+    <link rel="stylesheet" text = "text/css" href = "../static/style.css">
+</head>
+<body>
+<h1>Kanban Board</h1>
+<p>Keep track of your small or big life goals and tasks!</p>
+
+<form id="new_task_form", method="post", name="new_task_form">
+    <div>
+      <button type="submit", name="button", value = "add_task">Add Task</button>
+
+      <label for="name">Name: <span aria-label="required">*</span></label>
+      <input id="name" type="text" name="task_name" required/>
+
+      <label for="description", maxlength = "50">Task Description:</label>
+      <textarea id="description" name="task_description"></textarea>
+    </div>
+</form>
+
+<table class="table">
+    {% if not tasks %}
+        <caption> Add your first task below! </caption>
+    {% else %}
+    <caption> Current tasks </caption>
+    {% endif %}
+
+    <thead class = "thread-dark">
+        <tr>
+            <th class="task">Name</th>
+            <th class="status">Status</th>
+            <th class="update">Remove</th>
+        </tr>
+    </thead>
+        
+    <tbody>
+        {% for task in tasks %}
+        <tr>
+            <td> {{task.name}} </td>
+            <td> 
+                <form id="update_task_status_form" method = "post" name ="update_status"> 
+                    <input type="hidden" name="task_id" value="{{task.id}}">
+                    <button type="submit" name="button" value = "update_status" data-id="{{task.id}}">{{task.status}}</button>
+                </form>
+            </td>
+            <td>
+                <form id="delete_task_form" method = "post" name ="delete_task"> 
+                    <input type="hidden" name="task_id" value="{{task.id}}">
+                    <button type="submit" name="button" value = "delete_task" data-id="{{task.id}}">&#128465</button>
+                </form>
+            </td>
+        </tr> 
+        {% endfor %}
+    </tbody>
+</table>
+</body>
+</html>
