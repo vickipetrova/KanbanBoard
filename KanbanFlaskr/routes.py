@@ -1,3 +1,5 @@
+requesting = None
+
 from flask import render_template, request, redirect, url_for
 from KanbanFlaskr import app
 from KanbanFlaskr import database as db
@@ -25,6 +27,7 @@ def mainboard_post():
     -------
         None
     """
+    print("HERE")
     # Handle POST requests differently according to the button the request came from.
     if request.form["button"] == "add_task":
         task_name = request.form.get('task_name')
@@ -38,6 +41,7 @@ def mainboard_post():
     elif request.form["button"] == "delete_task":
         task_id = request.form.get('task_id')
         db.delete_task(task_id)
+        print("DELETED")
     
     return redirect(url_for('mainboard'))
 
