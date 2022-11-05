@@ -10,30 +10,31 @@
 <h1>Kanban Board</h1>
 <p>Keep track of your small or big life goals and tasks!</p>
 
-<form id="new_task_form", method="post", name="new_task_form">
+<form id="new_task_form" method="post" name="new_task_form" autocomplete="off">
     <div>
-      <button type="submit", name="button", value = "add_task">Add Task</button>
+      <button type="submit" class = "main_button" name="button" value = "add_task">Add Task</button>
 
       <label for="name">Name: <span aria-label="required">*</span></label>
-      <input id="name" type="text" name="task_name" required/>
+      <input id="name" type="text" name="task_name" maxlength = "15" required/>
 
-      <label for="description", maxlength = "50">Task Description:</label>
-      <textarea id="description" name="task_description"></textarea>
+      <label for="description", >Description:</label>
+      <textarea id="description" name="task_description" maxlength = "50"></textarea>
     </div>
 </form>
 
 <table class="table">
     {% if not tasks %}
-        <caption> Add your first task below! </caption>
+     <caption class = "table_caption"> Add your first task below! </caption>
     {% else %}
-    <caption> Current tasks </caption>
+     <caption class = "table_caption"> Current tasks </caption>
     {% endif %}
 
-    <thead class = "thread-dark">
+    <thead>
         <tr>
-            <th class="task">Name</th>
+            <th class="name">Name</th>
             <th class="status">Status</th>
-            <th class="update">Remove</th>
+            <th class="description">Description</th>
+            <th class="remove">Remove</th>
         </tr>
     </thead>
         
@@ -41,16 +42,34 @@
         {% for task in tasks %}
         <tr>
             <td> {{task.name}} </td>
+            {% if task.status == "To-do"%}
+              <td> 
+                <form id="update_task_status_form" method = "post" name ="update_status"> 
+                    <input type="hidden" name="task_id" value="{{task.id}}">
+                    <button type="submit" class = "todo_status_button" name="button" value = "update_status" data-id="{{task.id}}">{{task.status}}</button>
+                </form>
+              </td>
+            {% elif task.status == "In progress"%}
+             <td> 
+                <form id="update_task_status_form" method = "post" name ="update_status"> 
+                    <input type="hidden" name="task_id" value="{{task.id}}">
+                    <button type="submit" class = "progress_status_button" name="button" value = "update_status" data-id="{{task.id}}">{{task.status}}</button>
+                </form>
+             </td>
+            {%else%} 
             <td> 
                 <form id="update_task_status_form" method = "post" name ="update_status"> 
                     <input type="hidden" name="task_id" value="{{task.id}}">
-                    <button type="submit" name="button" value = "update_status" data-id="{{task.id}}">{{task.status}}</button>
+                    <button type="submit" class = "completed_status_button" name="button" value = "update_status" data-id="{{task.id}}">{{task.status}}</button>
                 </form>
-            </td>
+             </td>
+            {% endif %}
+
+            <td>{{task.description}}</td>
             <td>
                 <form id="delete_task_form" method = "post" name ="delete_task"> 
                     <input type="hidden" name="task_id" value="{{task.id}}">
-                    <button type="submit" name="button" value = "delete_task" data-id="{{task.id}}">&#128465</button>
+                    <button type="submit" class = "delete_button" name="button" value = "delete_task" data-id="{{task.id}}">&#128465</button>
                 </form>
             </td>
         </tr> 

@@ -6,8 +6,8 @@ def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
-        SECRET_KEY='dev',
-        DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite'),
+        SECRET_KEY='IBelieveICanFly',
+        DATABASE=os.path.join(app.instance_path, 'kanban.sqlite'),
     )
 
     if test_config is None:
@@ -23,11 +23,9 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    
-    
-
     return app
 
+# Initialize the app. 
 app = create_app()
 
 from KanbanFlaskr import routes

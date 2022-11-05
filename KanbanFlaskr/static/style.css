@@ -1,3 +1,5 @@
+/* CSS style for the main kanban board page */
+
 .table td {
     text-align: center;
     vertical-align: middle;
@@ -15,6 +17,93 @@ h1 {
     background-color:orange;
 }
 .table th {
-    width: 10%;
+    /* width: 10%; */
     border-bottom:1px solid black;
+}
+
+.status {
+    width: 15%;
+}
+
+.remove {
+    width: 5%
+}
+
+.description {
+    width: 400px;
+}
+
+.name {
+    width: 120px;
+}
+
+table {
+    width: 1000px;
+}
+
+.progress_status_button {
+    background-color: rgb(255, 255, 255);
+    color:rgb(34, 121, 234);
+    text-align: center;
+    border-radius: 4px;
+    border-color: rgb(34, 121, 234);
+    border-width: 1px;
+}
+
+.completed_status_button {
+    background-color: rgb(255, 255, 255);
+    color: rgb(104, 173, 0);
+    text-align: center;
+    border-radius: 4px;
+    border-color: rgb(104, 173, 0);
+    border-width: 1px;
+}
+
+.todo_status_button {
+    background-color: rgb(255, 255, 255);
+    color: orange;
+    text-align: center;
+    border-radius: 4px;
+    border-color: orange;
+    border-width: 1px;
+}
+
+.table_caption {
+    font-size: 25px;
+    font-weight: bold;
+    padding-top: 20px;
+}
+
+.delete_button {
+    background-color: rgb(255, 255, 255);
+    color: rgb(174, 174, 174);
+    text-align: center;
+    border-radius: 1px;
+    border-width: 1px;
+}
+
+textarea {
+    height: 20px;
+    width: 420px;
+    resize: none;
+}
+
+p {
+    color: orange;
+    text-align: center;
+    padding-bottom: 20px;
+    font-weight: bold;
+}
+
+.main_button {
+    background-color: rgba(254, 165, 0, 0.232);
+    color: orange;
+    border-color: orange;
+    border-radius: 8px;
+    border-width: 2px;
+    width: 100px;
+    height: 60px;
+    font-size: medium;
+    font-weight: bold;
+    padding: 4px;
 }
