@@ -1,28 +1,57 @@
+<!-- This is the template for the Kanban Board -->
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1>{% block title %}Posts{% endblock %}</h1>
+<p>Keep track of your small or big life goals and tasks!</p>
+  <h1>{% block title %}Tasks{% endblock %}</h1>
   {% if g.user %}
-    <a class="action" href="{{ url_for('blog.create') }}">New</a>
+    <a class="add_task_button" href="{{ url_for('blog.create') }}">Add New</a>
   {% endif %}
 {% endblock %}
 
 {% block content %}
+
+<p></p>
+<table class="table"> 
+  <thead>
+    <tr>
+        <th class="name">Name</th>
+        <th class = "about"> Info</th>
+        <th class="status">Status</th>
+        <th class="description">Description</th>
+        <th class="edit">Edit</th>
+    </tr>
+  </thead>
+  <tbody>
   {% for post in posts %}
-    <article class="post">
-      <header>
-        <div>
-          <h1>{{ post['title'] }}</h1>
-          <div class="about">by {{ post['username'] }} on {{ post['created'].strftime('%Y-%m-%d') }}</div>
-        </div>
-        {% if g.user['id'] == post['author_id'] %}
-        <a class="action" href="{{ url_for('blog.update', id=post['id']) }}">Edit</a>
-        {% endif %}
-      </header>
-      <p class="body">{{ post['body'] }}</p>
-    </article>
-    {% if not loop.last %}
-      <hr>
-    {% endif %}
+  <tr> 
+    <td> {{ post['title'] }} </td>
+    <td>by {{ post['username'] }} on {{ post['created'].strftime('%Y-%m-%d') }} </td>
+    {%if post['task_status'] == 'todo'%}
+    <td type="todo"> To-do </td>
+    {%elif post['task_status'] == 'inprogress'%}
+    <td type="progress"> In progress </td>
+    {%elif post['task_status'] == 'completed'%}
+    <td type="completed"> Completed </td>
+    {%else%} 
+    <td>Unknown</td>
+    {%endif%}
+      
+
+
+    </td>
+
+    <td> {{ post['body'] }} </td>
+    <td> 
+      {% if g.user['id'] == post['author_id'] %}
+        <a class="action" type = "symbol" href="{{ url_for('blog.update', id=post['id']) }}">&#9997</a>
+      {%else%} 
+        &#10060
+      {% endif %}
+    </td>
+
+  </tr>
   {% endfor %}
+</tbody>
+</table>
 {% endblock %}

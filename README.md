@@ -25,15 +25,40 @@ The current app is very simple and has no extended functionalities. Improvements
 python3 -m venv venv
 source venv/bin/activate
 pip3 install -r requirements.txt
+flask init-db
+pip install -e .
 python3 app.py
 ```
 # Testing
 
-After the environment is activated, run the following commands in the terminal
+Go to the main folder KanbanBoard and run the following commands from there. 
 
+First make sure to the environment is activated and the app is installed as a package:
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+pip3 install -r requirements.txt
+pip install -e .
+```
+
+Then install the coverage and run the tests:
 ```bash
 pip install pytest coverage
 pytest
-pytest -v (verbose)
+```
+
+To measure the code coverage of the tests use the `coverage` command instead of running `pytest` directly. 
+```bash
 coverage run -m pytest
+```
+
+You can create a coverage report in the reminal:
+```bash
+coverage report
+```
+
+You can also create an HTML report where you can see which lines are covered in each of the files. It will create files in the `htmlcov` folder. To view  the report open `htmlcov/index.html` in a browser. 
+```bash
+coverage html
 ```

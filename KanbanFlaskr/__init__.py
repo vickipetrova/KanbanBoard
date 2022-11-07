@@ -1,6 +1,6 @@
 import os
-
 from flask import Flask
+from . import db
 
 def create_app(test_config=None):
     # create and configure the app
@@ -23,9 +23,12 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    from . import db
+    
     db.init_app(app)
-
+    #@app.before_first_request 
+    #def create_tables():
+        #db.init_db_command()
+    
     # Import and register the blueprint for authentication from the factory. 
     from . import auth
     app.register_blueprint(auth.bp)
@@ -42,6 +45,11 @@ def create_app(test_config=None):
 
     return app
 
-app = create_app()  
+
+
+
+app = create_app() 
+
 # app.run(port=8000, debug=True)
+
 

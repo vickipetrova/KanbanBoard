@@ -7,9 +7,17 @@
 {% block content %}
   <form method="post">
     <label for="title">Title</label>
-    <input name="title" id="title" value="{{ request.form['title'] }}" required>
+    <input name="title" id="title" value="{{ request.form['title'] }}" maxlength = "15" required>
     <label for="body">Body</label>
-    <textarea name="body" id="body">{{ request.form['body'] }}</textarea>
+    <textarea name="body" id="body" maxlength = "50">{{ request.form['body'] }} </textarea>
+    <br>
+    <br>
+    <label for= "task_status"> Task Status</label><br> 
+
+    <input type="radio" name="task_status" id="todo" value="todo" required> To-do </input><br>
+    <input type="radio" name="task_status" id="inprogress" value="inprogress"> In progress </input><br>
+    <input type="radio" name="task_status" id="completed" value="completed"> Completed </input><br>
+    <p></p>
     <input type="submit" value="Save">
   </form>
 {% endblock %}

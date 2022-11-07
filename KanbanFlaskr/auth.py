@@ -33,6 +33,7 @@ def register():
             except db.IntegrityError:
                 error = f"User {username} is already registered."
             else:
+                # Redirect to the login page after registration.
                 return redirect(url_for("auth.login"))
 
         flash(error)
@@ -57,6 +58,7 @@ def login():
         elif not check_password_hash(user['password'], password):
             error = 'Incorrect password.'
 
+        # Redirect to User's board if login is successful.
         if error is None:
             session.clear()
             session['user_id'] = user['id']

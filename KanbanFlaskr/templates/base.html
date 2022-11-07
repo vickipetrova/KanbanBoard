@@ -1,9 +1,11 @@
 <!doctype html>
-<title>{% block title %}{% endblock %} - Flaskr</title>
+<!-- title in the browser's tab and window -->
+<title>{% block title %}{% endblock %} - Kanban Board</title>
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 <nav>
-  <h1>Flaskr</h1>
+  <h1>Kanban Board</h1>
   <ul>
+    <!-- g is available in the templaces by default -->
     {% if g.user %}
       <li><span>{{ g.user['username'] }}</span>
       <li><a href="{{ url_for('auth.logout') }}">Log Out</a>
@@ -15,10 +17,12 @@
 </nav>
 <section class="content">
   <header>
+    <!-- title on the page -->
     {% block header %}{% endblock %}
   </header>
   {% for message in get_flashed_messages() %}
     <div class="flash">{{ message }}</div>
   {% endfor %}
+  <!-- content of each page -->
   {% block content %}{% endblock %}
 </section>
