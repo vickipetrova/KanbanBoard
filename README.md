@@ -21,7 +21,12 @@ The current app is very simple and has no extended functionalities. Improvements
 # Running the app
 
 ## MacOS
-
+```bash
+python3 -m venv venv
+source venv/bin/activate
+pip3 install -r requirements.txt
+python3 app.py
+```
 # Testing
 
 After the environment is activated, run the following commands in the terminal
