@@ -11,6 +11,16 @@
       value="{{ request.form['title'] or post['title'] }}" required>
     <label for="body">Body</label>
     <textarea name="body" id="body">{{ request.form['body'] or post['body'] }}</textarea>
+    <br>
+    <br>
+
+    <label for= "task_status" value = "{{ request.form['task_status'] or post['task_status'] }}" checked data-checked='true'> New Task Status</label><br> 
+
+    <input type="radio" name="task_status" id="todo" value="todo" required> To-do </input><br>
+    <input type="radio" name="task_status" id="inprogress" value="inprogress"> In progress </input><br>
+    <input type="radio" name="task_status" id="completed" value="completed"> Completed </input><br>
+    <p></p>
+
     <input type="submit" value="Save">
   </form>
   <hr>

@@ -27,7 +27,7 @@ h1 {
 }
 
 .edit {
-    width: 2%;
+    width: 8%;
 }
 
 .description {
@@ -98,4 +98,3 @@ a:hover {
 }
 
 .action[type="symbol"] {font-size: larger;}
-.action[type="symbol"]:hover {font-size: x-large;}

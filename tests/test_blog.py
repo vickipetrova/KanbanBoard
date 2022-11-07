@@ -3,6 +3,13 @@ from KanbanFlaskr.db import get_db
 
 
 def test_index(client, auth):
+    """
+    Make sure all components are there after a user logs in:
+    - Log in
+    - the test task info
+    - Adding a new task
+
+    """
     response = client.get('/')
     assert b"Log In" in response.data
     assert b"Register" in response.data
@@ -11,6 +18,8 @@ def test_index(client, auth):
     response = client.get('/')
     assert b'Log Out' in response.data
     assert b'test title' in response.data
+    assert b'To-do' in response.data
+    assert b'Add New' in response.data
     assert b'by test on 2018-01-01' in response.data
     assert b'test\nbody' in response.data
     assert b'href="/1/update"' in response.data
@@ -52,7 +61,7 @@ def test_exists_required(client, auth, path):
 def test_create(client, auth, app):
     auth.login()
     assert client.get('/create').status_code == 200
-    client.post('/create', data={'title': 'created', 'body': ''})
+    client.post('/create', data={'title': 'created', 'body': '', 'task_status':'todo'})
 
     with app.app_context():
         db = get_db()
@@ -63,12 +72,14 @@ def test_create(client, auth, app):
 def test_update(client, auth, app):
     auth.login()
     assert client.get('/1/update').status_code == 200
-    client.post('/1/update', data={'title': 'updated', 'body': ''})
+    client.post('/1/update', data={'title': 'updated', 'body': 'bodyupdate', 'task_status': 'inprogress'})
 
     with app.app_context():
         db = get_db()
         post = db.execute('SELECT * FROM post WHERE id = 1').fetchone()
         assert post['title'] == 'updated'
+        assert post['body'] == 'bodyupdate'
+        assert post['task_status'] == 'inprogress'
 
 
 @pytest.mark.parametrize('path', (
@@ -77,7 +88,7 @@ def test_update(client, auth, app):
 ))
 def test_create_update_validate(client, auth, path):
     auth.login()
-    response = client.post(path, data={'title': '', 'body': ''})
+    response = client.post(path, data={'title': '', 'body': '', 'task_status':'todo'})
     assert b'Title is required.' in response.data
 
 
