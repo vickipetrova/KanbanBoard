@@ -23,8 +23,25 @@ def create_app(test_config=None):
     except OSError:
         pass
 
+    from . import db
+    db.init_app(app)
+
+    # Import and register the blueprint for authentication from the factory. 
+    from . import auth
+    app.register_blueprint(auth.bp)
+
+    # Import and register the blueprint for the blog posts (tasks).
+    from . import blog
+    app.register_blueprint(blog.bp)
+    app.add_url_rule('/', endpoint='index')
+
+    # This route is used for testing. 
+    @app.route('/hello')
+    def hello():
+        return "Hello, World!"
+
     return app
 
 app = create_app()  
 # app.run(port=8000, debug=True)
-from KanbanFlaskr import routes
+

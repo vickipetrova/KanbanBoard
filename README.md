@@ -1,4 +1,4 @@
-# KanbanBoard
+# KanbanBoard 
 A Kanban Board web app utilizing Flask, Python, HTML, CSS, created for my Software Engineering CS162 class at Minerva University. 
 
 ## Functionalities
@@ -18,3 +18,17 @@ The current app is very simple and has no extended functionalities. Improvements
 - User authentication
 - SQL database for the task and users
 
+# Running the app
+
+## MacOS
+
+# Testing
+
+After the environment is activated, run the following commands in the terminal
+
+```bash
+pip install pytest coverage
+pytest
+pytest -v (verbose)
+coverage run -m pytest
+```
