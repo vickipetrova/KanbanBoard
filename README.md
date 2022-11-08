@@ -1,5 +1,5 @@
 # KanbanBoard 
-A Kanban Board web app utilizing Flask, Python, HTML, CSS, created for my Software Engineering CS162 class at Minerva University. 
+A Kanban Board web app utilizing Flask, Python, HTML, CSS, and SQL, which I created for my Software Engineering CS162 class at Minerva University. 
 
 ## Functionalities
 
@@ -8,15 +8,30 @@ The users can:
 2. Change their state
 3. Delete existing tasks
 
-There are 3 categories for the states: to-do, in progress, done. 
+There are 3 categories for the states: to-do, in progress, and complete. 
 
-The current app is very simple and has no extended functionalities. Improvements can include:
-- Personalized Kanban board
-- Editing existing tasks
-- Improving the design
-- Creating mroe extensive tests
+### Key functionalities of the app include:
 - User authentication
-- SQL database for the task and users
+Users have a unique username and a password. I also restricted the length for the username strictly for the purposes of fitting it nicely in the table rather than having extremely long names. There are no additional requirements for the password. 
+- Personalized Kanban board
+In the main view users can see all tasks in the database created by anyone. However, in that case they will not be able to edit the tasks. If a users registers and logs into their account, then they will have all of features available to them. They will be able to create new tasks, only see the tasks they created in the personalized board and be able to edit them.  
+- Edit existing tasks
+Users are able to change the name, description, and status of a task. 
+- SQL database for the tasks and users
+
+A lot of the code is from or adapted from the Flask tutorial that we followed in class. 
+
+## Future Extensions and Improvements
+
+There are some aspects that can be improved and additional features that can be added. 
+
+- Hash passwords to store them securely.
+- Have additional requirements for the passwords (e.g. special characters, lowercase, uppercase, numbers).
+- Having a bigger variety for the possible states of the tasks.
+- Filtering of the tasks according to time, author, status. 
+- Being able to assign tasks to other users.  
+- Creating more tests for the main board view (current ones cover 75% of the code).
+
 
 # Running the app
 
@@ -62,3 +77,10 @@ You can also create an HTML report where you can see which lines are covered in 
 ```bash
 coverage html
 ```
+# LO and HC tags
+
+\#nudge: I used choice architecture in the design of the board with the tasks in order to guide the behaviour of the user in an ethical way. A user would be prompted to complete tasks since the color of a task with complete statuse is a more positive association compared with the red color of a task in to-do state. It does not guarantee to make users complete more tasks but would motivate them to do so to an extent. Other relevant choice architecture is when the user is not logged in, they see a big red X sign, which means they are not able to edit any tasks. To solve that they need to register and log in, which will allow them to make tasks and edit them. 
+
+\#heuristics: I used the creative heuristic, called using an idea stimulating checklist, to debug my code. In the heursitic you go through a list of questions to answer why your problem is occuring. This is exactly the method I followed for debugginf problems. For example, I was getting an error that the create form sent 4 values but there were 3 columns. I listed the possbile causes: does the sql table define all neccessary properties of a task, is the table intitiated properly, when the table of users and posts are joined do I get all columns, is the HTML form correctly initialized. After going though this list of questions I was able to figure out that the task_status property was not selected in the JOIN statement and subsequently I could not use it. 
+
+\#testability: This is a short HC tag but it is connected to the unit testing. With the help of the pytest library I was able to create numerous tests that test almost 100% of all the code to check that it is working in the expected way, including authentication, login, creating tasks, etc. Each test tests a hypothesis. For example, when adding a new task we expect to see it on the board, which is what the test does.
